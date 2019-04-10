@@ -7,6 +7,12 @@ class ContinuityImputer(BaseEstimator, TransformerMixin):
         self.copy = copy
     
     def fit(self, X, y=None):
+        X_iq = X[X['city'] == 'iq']
+        X_sj = X[X['city'] == 'sj']
+
+        self.medians_iq = {attr: np.nanmedian(X_iq[attr]) for attr in self.attributes}
+        self.medians_sj = {attr: np.nanmedian(X_sj[attr]) for attr in self.attributes}
+
         return self
     
     def transform(self, X):
@@ -14,7 +20,7 @@ class ContinuityImputer(BaseEstimator, TransformerMixin):
             X = X.copy()
 
         for attr in self.attributes:
-            last_values = {'sj': 0, 'iq': 0}
+            last_values = {'sj': self.medians_sj[attr], 'iq': self.medians_iq[attr]}
             r = []
             for _, curr in X.iterrows():
                 city = curr['city']
