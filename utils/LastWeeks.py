@@ -24,7 +24,7 @@ class LastWeeks(BaseEstimator, TransformerMixin):
 
         r = np.ndarray(shape=[X.shape[0], self.weeks, len(self.attributes)])
 
-        for idx, (_, week) in enumerate(X.iterrows()):
+        for idx, week in X.iterrows():
             city = week['city']
             r[idx] = self.last[city]
             self.last[city].pop()
