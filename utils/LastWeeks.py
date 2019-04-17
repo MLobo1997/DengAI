@@ -14,7 +14,7 @@ class LastWeeks(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         attr_medians = [np.nanmedian(X[attr]) for attr in self.attributes]
         dq = deque([attr_medians for _ in range(self.weeks)])
-        self.last = {'sj': dq, 'iq': dq}
+        self.last = {'sj': dq.copy(), 'iq': dq.copy()}
 
         return self
 
