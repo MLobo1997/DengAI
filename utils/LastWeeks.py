@@ -27,8 +27,8 @@ class LastWeeks(BaseEstimator, TransformerMixin):
         for idx, week in X.iterrows():
             city = week['city']
             r[idx] = self.last[city]
-            self.last[city].pop()
             self.last[city].appendleft(week[self.attributes])
+            self.last[city].pop()
 
         r = pd.DataFrame(r.reshape([X.shape[0], self.weeks * len(self.attributes)]),
                      columns=[self.new_attributes_prefix + str(week) + '_' + str(attr)

@@ -24,8 +24,8 @@ class LastInfected(BaseEstimator, TransformerMixin):
         for idx, n_infected in enumerate(self.y):
             city = X.loc[idx, 'city']
             r[idx] = self.last[city]
-            self.last[city].pop()
             self.last[city].appendleft(n_infected)
+            self.last[city].pop()
 
         r = pd.DataFrame(r, columns=[self.new_attributes_prefix + str(week) for week in range(self.weeks)])
         
