@@ -22,6 +22,8 @@ class LastWeeks(BaseEstimator, TransformerMixin):
         if self.copy:
             X = X.copy()
 
+        X.reset_index(drop=True, inplace=True)
+
         r = np.ndarray(shape=[X.shape[0], self.weeks, len(self.attributes)])
 
         for idx, week in X.iterrows():

@@ -6,12 +6,12 @@ from utils.DataFrameDropper import DataFrameDropper
 from utils.LastWeeks import LastWeeks
 from utils.LastInfected import LastInfected
 
-def create_pipeline(attr, n_weeks, n_weeks_infected, estimator_optimizer=None, pca=None, n_non_train=4):
+def create_pipeline(attr, n_weeks, n_weeks_infected, estimator_optimizer=None, pca=None, add_noise=False, noise_mean=None, noise_std=None, n_non_train=4):
 
     return Pipeline([
         ('imputer', ContinuityImputer(attributes=attr[n_non_train:])),
         ('l_weeks', LastWeeks(attributes=attr[n_non_train:], weeks=n_weeks)),
-        ('l_infected', LastInfected(weeks=n_weeks_infected)),
+        ('l_infected', LastInfected(weeks=n_weeks_infected, add_noise=add_noise, noise_mean=noise_mean, noise_std=noise_std)),
         ('dataframe_dropper', DataFrameDropper(attribute_names=attr[:n_non_train])),
         ('scaler', StandardScaler()),
         ('pca', pca),
