@@ -47,6 +47,7 @@ class LastInfected(BaseEstimator, TransformerMixin):
         if self.add_noise:
             noise = int(np.round(choice([-1,1]) * gauss(mu=self.noise_mean, sigma=self.noise_std)))
             new_y += noise
+            print('With noise {}!!'.format(new_y))
             if new_y < 0:
                 new_y = 0
         self.last[self.city].appendleft(new_y)
