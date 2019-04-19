@@ -15,9 +15,9 @@ class LastInfected(BaseEstimator, TransformerMixin):
         self.noise_mean = noise_mean
         self.noise_std = noise_std
 
-        self.first = True
     
     def fit(self, X, y):
+        self.first = True
         self.y = y.to_list()
         return self
     
