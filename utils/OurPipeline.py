@@ -29,9 +29,9 @@ def create_pipeline(attr, n_weeks=None, n_weeks_infected=None, estimator_optimiz
         ('l_infected', l_infected),
         ('dataframe_dropper', DataFrameDropper(attribute_names=attr[:n_non_train])),
         ('scaler', StandardScaler()),
-        ('pca', pca),
         ('sel_k_best', sel_k_best),
         ('corr_del', corr_del),
+        ('pca', pca),
         ('est_opt', estimator_optimizer),
     ]
 )

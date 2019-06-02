@@ -15,6 +15,7 @@ class CorrelationDeleter(BaseEstimator, TransformerMixin):
                     val = corr_matrix[i, j]
                     if abs(val) >= self.threshold_corr:
                         self.drop_cols.append(j) 
+        return self
     
     def transform(self, X):
         return np.delete(X, self.drop_cols, axis=1)
